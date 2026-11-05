@@ -1,11 +1,11 @@
-# glean
+# gorphan
 
 Clean up old local git branches from one interactive list in your terminal.
 
-Branches pile up: `feature/login-fix`, `bugfix/123`, `test-branch`... The PR gets merged, but the local branch stays. A few months later `git branch` shows 50 names and you don't remember which ones are safe to delete. `glean` works that out for you.
+Branches pile up: `feature/login-fix`, `bugfix/123`, `test-branch`... The PR gets merged, but the local branch stays. A few months later `git branch` shows 50 names and you don't remember which ones are safe to delete. `gorphan` works that out for you.
 
 ```
-$ glean
+$ gorphan
 
 12 merged, 3 stale, 1 active (compared with origin/main)
 ? Select branches to delete
@@ -25,13 +25,13 @@ $ glean
 ## Install
 
 ```
-npm install -g glean-cli
+npm install -g gorphan
 ```
 
-The package is called `glean-cli`; the command it installs is `glean`. To try it without installing:
+To try it without installing:
 
 ```
-npx glean-cli
+npx gorphan
 ```
 
 ## Usage
@@ -39,12 +39,12 @@ npx glean-cli
 Run it inside any git repository:
 
 ```
-glean                       # find candidates, show them, confirm, delete
-glean --dry-run             # show what would be deleted, change nothing
-glean -y                    # delete without the confirmation prompt
-glean --merged              # only branches merged into the default branch
-glean --gone                # only branches whose upstream is gone
-glean feature/login-fix     # delete one (or more) branches by name
+gorphan                       # find candidates, show them, confirm, delete
+gorphan --dry-run             # show what would be deleted, change nothing
+gorphan -y                    # delete without the confirmation prompt
+gorphan --merged              # only branches merged into the default branch
+gorphan --gone                # only branches whose upstream is gone
+gorphan feature/login-fix     # delete one (or more) branches by name
 ```
 
 ## How branches are sorted
@@ -56,9 +56,9 @@ glean feature/login-fix     # delete one (or more) branches by name
 | ⚠️ Stale | Not merged, and no commit for 30+ days or its remote branch was deleted | no |
 | 🔵 Active | Not merged, recent commits | can't be selected |
 
-The default branch (`main`, `master`, ...) is detected from `origin/HEAD`. Before sorting, `glean` runs `git fetch --prune` so it compares against the latest remote state.
+The default branch (`main`, `master`, ...) is detected from `origin/HEAD`. Before sorting, `gorphan` runs `git fetch --prune` so it compares against the latest remote state.
 
-Why the squash check matters: a squash merge creates a brand-new commit on main, so git itself thinks your branch was never merged. `glean` asks GitHub instead (through the [`gh` CLI](https://cli.github.com)). The commit check means a branch you kept working on after the merge is **not** treated as merged.
+Why the squash check matters: a squash merge creates a brand-new commit on main, so git itself thinks your branch was never merged. `gorphan` asks GitHub instead (through the [`gh` CLI](https://cli.github.com)). The commit check means a branch you kept working on after the merge is **not** treated as merged.
 
 ## Options
 
@@ -75,7 +75,7 @@ Why the squash check matters: a squash merge creates a brand-new commit on main,
 
 `--merged --gone` together lists branches matching either filter. With a filter, every listed branch starts ticked.
 
-`glean <branch>...` deletes a merged branch right away and asks before deleting an unmerged one.
+`gorphan <branch>...` deletes a merged branch right away and asks before deleting an unmerged one.
 
 ## Safety
 
@@ -86,7 +86,7 @@ Why the squash check matters: a squash merge creates a brand-new commit on main,
 
 ## Undo a delete
 
-Each deletion is appended to `~/.glean.log`:
+Each deletion is appended to `~/.gorphan.log`:
 
 ```
 2026-11-05T09:23:54Z  /path/to/repo  git branch feature/login-fix 3f199daf...
@@ -102,7 +102,7 @@ Copy the `git branch <name> <sha>` part and run it in that repo. The branch come
 
 ## Troubleshooting
 
-**`npm install -g` fails with `EACCES: permission denied`.** Your global npm folder is owned by root. Either use `npx glean-cli`, or point npm at a folder you own (once):
+**`npm install -g` fails with `EACCES: permission denied`.** Your global npm folder is owned by root. Either use `npx gorphan`, or point npm at a folder you own (once):
 
 ```
 npm config set prefix ~/.local    # make sure ~/.local/bin is on your PATH
@@ -112,7 +112,7 @@ Don't use `sudo npm install -g`.
 
 **"squash-merge check skipped".** `gh` isn't installed or isn't logged in. Run `gh auth login`, or pass `--no-gh` to hide the message.
 
-**It compares against the wrong branch.** `glean` uses whatever `origin/HEAD` points to. Refresh it with `git remote set-head origin --auto`.
+**It compares against the wrong branch.** `gorphan` uses whatever `origin/HEAD` points to. Refresh it with `git remote set-head origin --auto`.
 
 ## License
 

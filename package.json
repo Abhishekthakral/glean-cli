@@ -1,10 +1,10 @@
 {
-  "name": "glean-cli",
-  "version": "1.0.1",
+  "name": "gorphan",
+  "version": "1.0.0",
   "description": "Clean up merged, squash-merged and stale local git branches from one interactive list in your terminal",
   "type": "module",
   "bin": {
-    "glean": "bin/glean.js"
+    "gorphan": "bin/gorphan.js"
   },
   "files": [
     "bin"

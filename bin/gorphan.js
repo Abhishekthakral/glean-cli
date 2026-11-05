@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// glean: delete merged / squash-merged / stale local branches from an interactive list, or by name.
+// gorphan: delete merged / squash-merged / stale local branches from an interactive list, or by name.
 import { spawnSync } from 'node:child_process';
 import { appendFileSync } from 'node:fs';
 import { homedir } from 'node:os';
@@ -7,7 +7,7 @@ import { join } from 'node:path';
 import { parseArgs, styleText } from 'node:util';
 import { checkbox, confirm } from '@inquirer/prompts';
 
-const LOG = join(homedir(), '.glean.log');
+const LOG = join(homedir(), '.gorphan.log');
 const PROTECTED = ['main', 'master', 'develop', 'dev', 'staging'];
 
 const die = (msg) => { console.error(styleText('red', msg)); process.exit(1); };
@@ -28,13 +28,13 @@ try {
     },
   }));
 } catch (e) {
-  die(`${e.message.split('.')[0]}. Run "glean -h" for usage.`);
+  die(`${e.message.split('.')[0]}. Run "gorphan -h" for usage.`);
 }
 
 if (opt.help) {
   console.log(`Usage:
-  glean                  pick branches to delete from a list
-  glean <branch>...      delete these branches
+  gorphan                  pick branches to delete from a list
+  gorphan <branch>...      delete these branches
 
 Options:
   --merged     only branches merged into the default branch (incl. squash merges)
