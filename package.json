@@ -1,6 +1,6 @@
 {
   "name": "glean-cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Clean up merged, squash-merged and stale local git branches from one interactive list in your terminal",
   "type": "module",
   "bin": {
