@@ -1,0 +1,33 @@
+{
+  "name": "glean-cli",
+  "version": "1.0.0",
+  "description": "Clean up merged, squash-merged and stale local git branches from one interactive list in your terminal",
+  "type": "module",
+  "bin": {
+    "glean": "bin/glean.js"
+  },
+  "files": [
+    "bin"
+  ],
+  "engines": {
+    "node": "^20.17.0 || ^22.13.0 || >=23.5.0"
+  },
+  "keywords": [
+    "git",
+    "branch",
+    "branches",
+    "cleanup",
+    "delete",
+    "prune",
+    "merged",
+    "squash",
+    "stale",
+    "gone",
+    "cli"
+  ],
+  "author": "abhishek",
+  "license": "MIT",
+  "dependencies": {
+    "@inquirer/prompts": "^8.0.0"
+  }
+}
